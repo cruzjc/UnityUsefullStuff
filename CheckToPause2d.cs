@@ -10,29 +10,36 @@ public class CheckToPause2d : MonoBehaviour
         CheckToPause();
     }
 
-    bool IsPlayerEngaged()
+
+    // Checks if Mouse cursor is within borders
+    bool IsMouseCursorWithinBorders()
     {
-        bool outOfBoundsA = Input.mousePosition.x <= 0 || Input.mousePosition.y <= 0;
-        bool outOfBoundsB = Input.mousePosition.x >= Screen.width - 2 || Input.mousePosition.y >= Screen.height - 2;
-        if (outOfBoundsA || outOfBoundsB)
+        int offset = 2;
+        bool outOfBoundsLeftSide = Input.mousePosition.x <= 0;
+        bool outOfBoundsRightSide = Input.mousePosition.x >= Screen.width - offset ;
+        bool outOfBoundsTopSide = Input.mousePosition.y >= Screen.height - offset;
+        bool outOfBoundsBottomSide = Input.mousePosition.y <= 0;
+        
+        if (outOfBoundsLeftSide || outOfBoundsRightSide || outOfBoundsTopSide || outOfBoundsBottomSide)
         {
             return false;
         }
         return true;
     }
 
+
+    //Pauses game if cursor is out of bounds
     void CheckToPause()
     {
-        if (!IsPlayerEngaged())
+        if (!IsMouseCursorWithinBorders())
         {
             Time.timeScale = 0;
-            Debug.Log("Game is Pause");
+            //Debug.Log("Game is Pause");
         }
         else
         {
             Time.timeScale = 1;
-            Debug.Log("Game Unpaused");
-
+            //Debug.Log("Game Unpaused");
         }
 
     }
