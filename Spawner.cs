@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-
+    #region Unity functions
     private void Start()
     {
         SpawnAtRandomTime();
     }
 
-
     // Update is called once per frame
     void Update()
     {
-        if(SpawnCooldownTimer<=0&&!hasObject){
+        bool IsIdle = SpawnCooldownTimer <= 0;
+        if (IsIdle&&!hasObject){
             SpawnObject();
             SpawnAtRandomTime();
         }
-        else if(SpawnCooldownTimer>0&&hasObject)
+        else if(!IsIdle&&hasObject)
         {
             Cooldown();
         }
@@ -27,6 +27,7 @@ public class Spawner : MonoBehaviour
             CheckSpawnedObject();
         }
     }
+    #endregion
 
     [SerializeField]
     private float SpawnCooldown = 10;
